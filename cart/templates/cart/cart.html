@@ -1,0 +1,36 @@
+{% extends 'products/base.html' %}
+{% block title %}Корзина — ТехноМаркет{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Ваша корзина</h1>
+
+{% if cart_items %}
+<div class="cart-items">
+  {% for item in cart_items %}
+  <div class="cart-item">
+    <div class="cart-item__info">
+      <h3>{{ item.product.name }}</h3>
+      <p>Цена за шт: {{ item.product.price }} ₽</p>
+    </div>
+    <div class="cart-item__quantity">× {{ item.quantity }}</div>
+    <div class="cart-item__total">{{ item.total_price }} ₽</div>
+    
+    <form method="post" action="{% url 'cart_remove' item.product.pk %}" class="cart-delete-form">
+      {% csrf_token %}
+      <button type="submit" class="cart-item__remove" title="Удалить">×</button>
+    </form>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="cart-summary">
+  <h3>Итого: <span class="total-amount">{{ total }} ₽</span></h3>
+  <a href="{% url 'product_list' %}" class="btn btn--outline">Продолжить покупки</a>
+</div>
+{% else %}
+<div class="empty-state">
+  <p>Ваша корзина пуста.</p>
+  <a href="{% url 'product_list' %}" class="btn">Выбрать товары</a>
+</div>
+{% endif %}
+{% endblock %}

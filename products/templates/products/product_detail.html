@@ -1,0 +1,27 @@
+{% extends 'products/base.html' %}
+{% block title %}{{ product.name }} — ТехноМаркет{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+    <div class="product-detail__image">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+            <div class="product-detail__placeholder">📷</div>
+        {% endif %}
+    </div>
+    <div class="product-detail__info">
+        <h1 class="product-detail__title">{{ product.name }}</h1>
+        <p class="product-detail__desc">{{ product.description }}</p>
+        <div class="product-detail__price">Цена: <strong>{{ product.price }} ₽</strong></div>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'cart_add' product.pk %}" class="btn btn--lg">Добавить в корзину</a>
+        {% else %}
+            <p><a href="{% url 'login' %}" class="btn btn--lg">Войдите, чтобы купить</a></p>
+        {% endif %}
+
+        <a href="{% url 'product_list' %}" class="btn btn--link">← Назад к товарам</a>
+    </div>
+</div>
+{% endblock %}

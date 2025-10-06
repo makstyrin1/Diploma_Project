@@ -1,0 +1,258 @@
+/* base.css — основные стили проекта */
+
+/* ======================
+   Переменные и сброс
+====================== */
+
+:root {
+    --primary: #4361ee;
+    --primary-dark: #3a56d4;
+    --danger: #e63946;
+    --success: #2a9d8f;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --light-gray: #e9ecef;
+    --border: #dee2e6;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fafafa;
+    color: var(--dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ======================
+   Контейнер
+====================== */
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ======================
+   Шапка (Header)
+====================== */
+
+.header {
+    background: white;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 15px;
+    padding-right: 25px;
+}
+
+.header__left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header__right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header__logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.header__user {
+    color: var(--gray);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header__user:hover {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.header__cart {
+    position: relative;
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: var(--dark);
+}
+
+.cart-badge {
+    background: var(--primary);
+    color: white;
+    font-size: 0.6rem;
+    padding: 0.01rem 0.4rem;
+    padding-top: 0.1rem;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    text-align: center;
+}
+
+.main {
+    flex: 1;
+    padding: 2rem 0;
+}
+
+.messages {
+    margin-bottom: 1.5rem;
+}
+
+.alert {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+}
+
+.alert--success {
+    background: #d1e7dd;
+    color: #0f5132;
+    border-color: #badbcc;
+}
+
+.alert--info {
+    background: #d1e7dd;
+    color: #0f5132;
+    border-color: #badbcc;
+}
+
+.alert--error, .alert--danger {
+    background: #f8d7da;
+    color: #842029;
+    border-color: #f1aeb5;
+}
+
+/* ======================
+   Пустое состояние
+====================== */
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--gray);
+}
+
+.empty-state .btn {
+    margin-top: 1rem;
+}
+
+/* ======================
+   Подвал (Footer)
+====================== */
+
+.footer {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: auto;
+}
+
+/* ======================
+   Типографика
+====================== */
+
+.page-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--dark);
+}
+
+/* ======================
+   Адаптивность
+====================== */
+
+@media (max-width: 768px) {
+    .header__container {
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .header__left,
+    .header__right {
+        gap: 0.8rem;
+    }
+
+    .header__logo {
+        font-size: 1.4rem;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header__right {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .header__user {
+        width: 100%;
+        text-align: right;
+        order: -1;
+    }
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+    filter: brightness(0) saturate(100%) invert(50%);
+}
+
+/* Кнопка "Выйти" в шапке — выглядит как ссылка */
+.header__logout-btn {
+    background: none;
+    border: none;
+    color: var(--gray);
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    display: inline;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.header__logout-btn:hover {
+    color: var(--primary);
+    text-decoration: none;
+}

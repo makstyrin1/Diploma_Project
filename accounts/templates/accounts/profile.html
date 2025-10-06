@@ -1,0 +1,18 @@
+{% extends 'products/base.html' %}
+{% block title %}Профиль — ТехноМаркет{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+    <h1 class="page-title">Личный кабинет</h1>
+    <div class="profile-info">
+        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email|default:"Не указан" }}</p>
+        <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+    </div>
+
+    <div class="profile-actions">
+        <a href="{% url 'cart_detail' %}" class="btn">Перейти в корзину</a>
+        <a href="{% url 'product_list' %}" class="btn btn--outline">Каталог товаров</a>
+    </div>
+</div>
+{% endblock %}

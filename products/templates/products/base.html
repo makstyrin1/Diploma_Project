@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ТехноМаркет{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container header__container">
+            <!-- Левая часть: логотип + категории -->
+            <div class="header__left">
+                <a href="{% url 'home' %}" class="header__logo">SmartHub</a>
+
+                <!-- Выпадающее меню категорий -->
+                <div class="dropdown">
+                    <button class="dropdown__toggle" id="categoriesToggle">
+                        Категории ▼
+                    </button>
+                    <ul class="dropdown__menu" id="categoriesMenu">
+                        <li><a href="{% url 'product_list' %}">Все товары</a></li>
+                        {% for category in categories %}
+                            <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Правая часть: аккаунт и корзина -->
+            <div class="header__right">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="header__user">{{ user.first_name|default:user.username }}</a>
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="header__user header__logout-btn">Выйти</button>
+                    </form>
+                    <a href="{% url 'cart_detail' %}" class="header__cart">
+                            <img src="/static/icons/cart.svg" alt="Корзина" class="icon">
+                        {% with cart_count=user.cartitem_set.count %}
+                            {% if cart_count %}
+                                <span class="cart-badge">{{ cart_count }}</span>
+                            {% endif %}
+                        {% endwith %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn--outline">Войти</a>
+                    <a href="{% url 'signup' %}" class="btn">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert--{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ТехноМаркет. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Модальное окно для подтверждения удаления -->
+<div id="deleteModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Подтвердите действие</h3>
+        <p id="deleteModalText">Вы уверены, что хотите удалить товар из корзины?</p>
+        <div class="modal-buttons">
+            <button id="confirmDeleteBtn" class="btn btn--primary">ОК</button>
+            <button id="cancelDeleteBtn" class="btn btn--outline">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
