@@ -23,6 +23,7 @@ ALLOWED_HOSTS = ['localhost', 'my-first.site', 'www.my-first.site']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
