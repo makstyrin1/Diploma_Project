@@ -204,6 +204,8 @@ body {
     .header__left,
     .header__right {
         gap: 0.8rem;
+        padding: 1rem 0;
+        padding-right: 15px;
     }
 
     .header__logo {
@@ -255,4 +257,111 @@ body {
 .header__logout-btn:hover {
     color: var(--primary);
     text-decoration: none;
+}
+
+/* ======================
+   Бургер-меню
+====================== */
+
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.burger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: var(--dark);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Адаптивность: бургер появляется на мобильных */
+@media (max-width: 768px) {
+    .burger-menu {
+        display: flex;
+    }
+
+    /* Скрываем обычное левое меню по умолчанию */
+    .header__left {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 1rem;
+        box-shadow: var(--shadow-lg);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        z-index: 999;
+    }
+
+    /* Показываем меню, если активно */
+    .header__left.active {
+        max-width: 20rem;
+        display: flex;
+    }
+
+    /* Адаптируем контейнер хедера */
+    .header__container {
+        position: relative;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 15px;
+    }
+
+    /* Убираем gap у .header__right, если нужно */
+    .header__right {
+        gap: 0.75rem;
+    }
+
+    /* Стили для выпадающего меню внутри мобильного */
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropdown__toggle {
+        width: 100%;
+        text-align: left;
+        padding: 0.5rem 0;
+        background: none;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        color: var(--dark);
+    }
+
+    .dropdown__menu {
+        position: static;
+        display: none;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-left: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .dropdown__menu.show {
+        display: flex;
+    }
+
+    .dropdown__menu a {
+        text-decoration: none;
+        color: var(--gray);
+    }
+
+    .dropdown__menu a:hover {
+        color: var(--primary);
+    }
 }
