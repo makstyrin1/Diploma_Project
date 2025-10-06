@@ -11,48 +11,55 @@
 </head>
 <body>
     <header class="header">
-        <div class="container header__container">
-            <!-- Левая часть: логотип + категории -->
-            <div class="header__left">
-                <a href="{% url 'home' %}" class="header__logo">SmartHub</a>
+    <div class="container header__container">
+        <!-- Бургер-кнопка (только на мобильных) -->
+        <button class="burger-menu" id="burgerToggle" aria-label="Меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-                <!-- Выпадающее меню категорий -->
-                <div class="dropdown">
-                    <button class="dropdown__toggle" id="categoriesToggle">
-                        Категории ▼
-                    </button>
-                    <ul class="dropdown__menu" id="categoriesMenu">
-                        <li><a href="{% url 'product_list' %}">Все товары</a></li>
-                        {% for category in categories %}
-                            <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
+        <!-- Левая часть: логотип + категории (будет скрыта на мобильных) -->
+        <div class="header__left" id="mobileMenu">
+            <a href="{% url 'home' %}" class="header__logo">SmartHub</a>
 
-            <!-- Правая часть: аккаунт и корзина -->
-            <div class="header__right">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="header__user">{{ user.first_name|default:user.username }}</a>
-                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="header__user header__logout-btn">Выйти</button>
-                    </form>
-                    <a href="{% url 'cart_detail' %}" class="header__cart">
-                            <img src="/static/icons/cart.svg" alt="Корзина" class="icon">
-                        {% with cart_count=user.cartitem_set.count %}
-                            {% if cart_count %}
-                                <span class="cart-badge">{{ cart_count }}</span>
-                            {% endif %}
-                        {% endwith %}
-                    </a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn--outline">Войти</a>
-                    <a href="{% url 'signup' %}" class="btn">Регистрация</a>
-                {% endif %}
+            <!-- Выпадающее меню категорий -->
+            <div class="dropdown">
+                <button class="dropdown__toggle" id="categoriesToggle">
+                    Категории ▼
+                </button>
+                <ul class="dropdown__menu" id="categoriesMenu">
+                    <li><a href="{% url 'product_list' %}">Все товары</a></li>
+                    {% for category in categories %}
+                        <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
-    </header>
+
+        <!-- Правая часть: аккаунт и корзина -->
+        <div class="header__right">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="header__user">{{ user.first_name|default:user.username }}</a>
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="header__user header__logout-btn">Выйти</button>
+                </form>
+                <a href="{% url 'cart_detail' %}" class="header__cart">
+                    <img src="/static/icons/cart.svg" alt="Корзина" class="icon">
+                    {% with cart_count=user.cartitem_set.count %}
+                        {% if cart_count %}
+                            <span class="cart-badge">{{ cart_count }}</span>
+                        {% endif %}
+                    {% endwith %}
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn--outline">Войти</a>
+                <a href="{% url 'signup' %}" class="btn">Регистрация</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
 
     <main class="main">
         <div class="container">
