@@ -19,16 +19,15 @@
 .btn--outline {
     background: transparent;
     color: var(--primary);
+    border: 2px solid var(--primary);
 }
 .btn--outline:hover {
     background: rgba(67, 97, 238, 0.05);
 }
 .btn--ghost {
-
     color: var(--gray);
     border: none;
     font-weight: bold;
-    border: none;
 }
 .btn--ghost:hover {
     color: var(--danger);
@@ -131,6 +130,15 @@
 .product-card__body {
     padding: 1.2rem;
 }
+.product-card__category {
+    font-size: 0.85rem;
+    color: var(--primary);
+    margin-bottom: 0.1rem;
+}
+.product-card__category a {
+    color: var(--primary);
+    text-decoration: none;
+}
 .product-card__title a {
     color: var(--dark);
     text-decoration: none;
@@ -154,6 +162,10 @@
     color: var(--primary);
 }
 
+/* ======================
+   Страница деталей товара
+====================== */
+
 .product-detail {
     display: flex;
     gap: 3rem;
@@ -163,6 +175,16 @@
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
 }
+
+/* Мобильная адаптация деталей */
+@media (max-width: 768px) {
+    .product-detail {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.2rem;
+    }
+}
+
 .product-detail__image {
     flex: 1;
     display: flex;
@@ -195,6 +217,84 @@
     font-size: 1.4rem;
     margin-bottom: 1.5rem;
 }
+
+/* ======================
+   Галерея изображений (обновлена!)
+====================== */
+
+.product-main-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-main-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.product-gallery {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.product-gallery h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+/* Горизонтальная прокручиваемая галерея */
+.gallery-images {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 5px 0;
+    margin-top: 10px;
+    scroll-behavior: smooth;
+    /* Скрываем скроллбары (опционально) */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.gallery-images::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-item {
+    flex: 0 0 auto;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid #eee;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.gallery-item img:hover {
+    border-color: #007bff;
+}
+
+/* ======================
+   Корзина
+====================== */
 
 .cart-items {
     background: white;
@@ -247,6 +347,16 @@
     font-size: 1.4rem;
 }
 
+.cart-img {
+    width: 100px;
+    height: auto;
+    margin-right: 1rem;
+}
+
+/* ======================
+   Профиль
+====================== */
+
 .profile-page .profile-info {
     background: white;
     padding: 1.5rem;
@@ -260,14 +370,181 @@
     justify-content: center;
 }
 
+/* ======================
+   Боковая панель и макет
+====================== */
+
+.layout {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+.sidebar {
+    width: 250px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    height: fit-content;
+}
+.category-list {
+    list-style: none;
+}
+.category-list li {
+    margin-bottom: 0.5rem;
+}
+.category-list a {
+    text-decoration: none;
+    color: var(--gray);
+    display: block;
+    padding: 0.4rem 0;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.category-list a:hover,
+.category-list a.active {
+    background: var(--primary);
+    color: white;
+}
+.content {
+    flex: 1;
+}
+
+/* ======================
+   Выпадающее меню
+====================== */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown__toggle {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.dropdown__toggle:hover {
+    background: var(--primary-dark);
+}
+
+.dropdown__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    list-style: none;
+    margin: 0.3rem 0 0;
+    padding: 0.5rem 0;
+    min-width: 200px;
+    z-index: 1000;
+    display: none;
+}
+
+.dropdown__menu.show {
+    display: block;
+}
+
+.dropdown__menu li {
+    margin: 0;
+}
+
+.dropdown__menu a {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.dropdown__menu a:hover {
+    background: #f0f0f0;
+}
+
+/* ======================
+   Модальное окно
+====================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--gray);
+}
+
+.close:hover {
+    color: var(--danger);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--dark);
+}
+
+.modal-content p {
+    margin-bottom: 1.5rem;
+    color: var(--gray);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.btn--primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn--primary:hover {
+    background: var(--primary-dark);
+}
+
+/* ======================
+   Адаптивность (мобильные улучшения)
+====================== */
+
 @media (max-width: 768px) {
     .header__right {
         display: flex;
         flex-wrap: nowrap;
     }
-    .product-detail {
-        flex-direction: column;
-    }
+
     .cart-item {
         flex-wrap: wrap;
         gap: 0.5rem;
@@ -341,291 +618,4 @@
         width: 80%;
         box-sizing: border-box;
     }
-}
-
-.layout {
-    display: flex;
-    gap: 2rem;
-    margin-top: 1rem;
-}
-.sidebar {
-    width: 250px;
-    background: white;
-    padding: 1.5rem;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    height: fit-content;
-}
-.category-list {
-    list-style: none;
-}
-.category-list li {
-    margin-bottom: 0.5rem;
-}
-.category-list a {
-    text-decoration: none;
-    color: var(--gray);
-    display: block;
-    padding: 0.4rem 0;
-    border-radius: 4px;
-    transition: background 0.2s;
-}
-.category-list a:hover,
-.category-list a.active {
-    background: var(--primary);
-    color: white;
-}
-.content {
-    flex: 1;
-}
-
-.product-card__category {
-    font-size: 0.85rem;
-    color: var(--primary);
-    margin-bottom: 0.1rem;
-}
-.product-card__category a {
-    color: var(--primary);
-    text-decoration: none;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown__toggle {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 0.6rem 1rem;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-weight: 500;
-    transition: background 0.2s;
-}
-
-.dropdown__toggle:hover {
-    background: var(--primary-dark);
-}
-
-.dropdown__menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    list-style: none;
-    margin: 0.3rem 0 0;
-    padding: 0.5rem 0;
-    min-width: 200px;
-    z-index: 1000;
-    display: none;
-}
-
-.dropdown__menu.show {
-    display: block;
-}
-
-.dropdown__menu li {
-    margin: 0;
-}
-
-.dropdown__menu a {
-    display: block;
-    padding: 0.6rem 1rem;
-    color: var(--dark);
-    text-decoration: none;
-}
-
-.dropdown__menu a:hover {
-    background: #f0f0f0;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-lg);
-    max-width: 400px;
-    width: 90%;
-    position: relative;
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 28px;
-    cursor: pointer;
-    color: var(--gray);
-}
-
-.close:hover {
-    color: var(--danger);
-}
-
-.modal-content h3 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    color: var(--dark);
-}
-
-.modal-content p {
-    margin-bottom: 1.5rem;
-    color: var(--gray);
-}
-
-.modal-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-}
-
-.btn--primary {
-    background: var(--primary);
-    color: white;
-}
-
-.btn--primary:hover {
-    background: var(--primary-dark);
-}
-
-.btn--outline {
-    background: transparent;
-    color: var(--primary);
-    border: 2px solid var(--primary);
-}
-
-.btn--outline:hover {
-    background: rgba(67, 97, 238, 0.05);
-}
-
-
-.cart-img {
-    width: 100px;
-    height: auto;
-    margin-right: 1rem;
-}
-
-
-
-.product-main-image {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.product-main-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.product-gallery {
-    margin-top: 30px;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-}
-
-.product-gallery h3 {
-    margin-top: 0;
-    color: #333;
-}
-
-.gallery-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-.gallery-item {
-    flex: 0 0 calc(20% - 9px);
-    width: 100%;
-    overflow: hidden;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
-}
-
-.gallery-item:hover {
-    transform: scale(1.05);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    aspect-ratio: 1;
-}
-
-@media (max-width: 768px) {
-    .gallery-item {
-        flex: 0 0 calc(20% - 10px);
-        max-width: 120px;
-    }
-}
-
-@media (max-width: 480px) {
-    .gallery-item {
-        flex: 0 0 calc(20% - 8px);
-        max-width: 100px;
-    }
-}
-
-.product-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 600px;
-    margin: 0 auto;
-}
-
-.product-main-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-}
-
-.product-gallery {
-    margin-top: 20px;
-}
-
-.gallery-images {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.gallery-item img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border: 2px solid #eee;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: border-color 0.2s;
-}
-
-.gallery-item img:hover {
-    border-color: #007bff;
 }
