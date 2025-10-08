@@ -1,85 +1,83 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // ==== Модальное окно для удаления ====
-  const deleteModal = document.getElementById("deleteModal");
-  const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
-  const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
-  const deleteModalText = document.getElementById("deleteModalText");
-  let deleteForm = null; // Сохраняем форму для отправки
+    // ==== Модальное окно для удаления ====
+    const deleteModal = document.getElementById("deleteModal");
+    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+    const deleteModalText = document.getElementById("deleteModalText");
+    let deleteForm = null;
 
-  // Открытие модального окна
-  document.querySelectorAll(".cart-delete-form").forEach((form) => {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      deleteForm = form;
-      deleteModalText.textContent =
-        "Вы уверены, что хотите удалить товар из корзины?";
-      deleteModal.style.display = "flex";
+    document.querySelectorAll(".cart-delete-form").forEach((form) => {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            deleteForm = form;
+            deleteModalText.textContent = "Вы уверены, что хотите удалить товар из корзины?";
+            deleteModal.style.display = "flex";
+        });
     });
-  });
 
-  // Закрытие по кнопке "Отмена"
-  cancelDeleteBtn.addEventListener("click", function () {
-    deleteModal.style.display = "none";
-    deleteForm = null;
-  });
-
-  // Закрытие по крестику
-  document.querySelector(".close").addEventListener("click", function () {
-    deleteModal.style.display = "none";
-    deleteForm = null;
-  });
-
-  // Закрытие при клике вне окна
-  window.addEventListener("click", function (e) {
-    if (e.target === deleteModal) {
-      deleteModal.style.display = "none";
-      deleteForm = null;
+    function closeDeleteModal() {
+        deleteModal.style.display = "none";
+        deleteForm = null;
     }
-  });
 
-  // Подтверждение удаления
-  confirmDeleteBtn.addEventListener("click", function () {
-    if (deleteForm) {
-      deleteForm.submit(); // Отправляем форму
+    cancelDeleteBtn.addEventListener("click", closeDeleteModal);
+    document.querySelector(".close")?.addEventListener("click", closeDeleteModal);
+    window.addEventListener("click", function (e) {
+        if (e.target === deleteModal) closeDeleteModal();
+    });
+
+    confirmDeleteBtn.addEventListener("click", function () {
+        if (deleteForm) deleteForm.submit();
+        closeDeleteModal();
+    });
+
+    // ==== Выпадающее меню категорий ====
+    const toggle = document.getElementById("categoriesToggle");
+    const menu = document.getElementById("categoriesMenu");
+
+    if (toggle && menu) {
+        toggle.addEventListener("click", function (e) {
+            e.stopPropagation();
+            menu.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove("show");
+            }
+        });
     }
-    deleteModal.style.display = "none";
-    deleteForm = null;
-  });
 
-  // ==== Выпадающее меню категорий ====
-  const toggle = document.getElementById("categoriesToggle");
-  const menu = document.getElementById("categoriesMenu");
+    // ==== Бургер-меню ====
+    const burgerToggle = document.getElementById("burgerToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-  if (toggle && menu) {
-    toggle.addEventListener("click", function (e) {
-      e.stopPropagation();
-      menu.classList.toggle("show");
+    if (burgerToggle && mobileMenu) {
+        burgerToggle.addEventListener("click", function () {
+            mobileMenu.classList.toggle("active");
+        });
+
+        document.addEventListener("click", function (e) {
+            if (
+                mobileMenu.classList.contains("active") &&
+                !mobileMenu.contains(e.target) &&
+                !burgerToggle.contains(e.target)
+            ) {
+                mobileMenu.classList.remove("active");
+            }
+        });
+    }
+
+// ==== Галерея: клик по миниатюре → замена основного изображения ====
+const mainImage = document.querySelector('.main-product-img');
+const galleryItems = document.querySelectorAll('.gallery-item img');
+
+galleryItems.forEach(img => {
+    img.addEventListener('click', function() {
+        if (mainImage) {
+            mainImage.src = this.src;
+            mainImage.alt = this.alt;
+        }
     });
-
-    document.addEventListener("click", function (e) {
-      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-        menu.classList.remove("show");
-      }
-    });
-  }
-  // ==== Бургер-меню ====
-  const burgerToggle = document.getElementById("burgerToggle");
-  const mobileMenu = document.getElementById("mobileMenu");
-
-  if (burgerToggle && mobileMenu) {
-    burgerToggle.addEventListener("click", function () {
-      mobileMenu.classList.toggle("active");
-    });
-
-    // Закрытие меню при клике вне его (опционально)
-    document.addEventListener("click", function (e) {
-      if (
-        !mobileMenu.contains(e.target) &&
-        !burgerToggle.contains(e.target) &&
-        mobileMenu.classList.contains("active")
-      ) {
-        mobileMenu.classList.remove("active");
-      }
-    });
-  }
 });
+ });

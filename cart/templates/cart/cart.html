@@ -8,6 +8,7 @@
 <div class="cart-items">
   {% for item in cart_items %}
   <div class="cart-item">
+    <img src="{{ item.product.main_image.url }}" alt="{{ product.name }}" class="cart-img">
     <div class="cart-item__info">
       <h3>{{ item.product.name }}</h3>
       <p>Цена за шт: {{ item.product.price }} ₽</p>

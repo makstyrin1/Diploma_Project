@@ -1,15 +1,32 @@
 {% extends 'products/base.html' %}
+{% load static %}
 {% block title %}{{ product.name }} — ТехноМаркет{% endblock %}
 
 {% block content %}
 <div class="product-detail">
-    <div class="product-detail__image">
-        {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    <!-- Основное изображение -->
+    <div class="product-main-image">
+        {% if product.main_image %}
+            <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="main-product-img">
         {% else %}
-            <div class="product-detail__placeholder">📷</div>
+            <img src="{% static 'images/default-product.jpg' %}" alt="Нет изображения" class="main-product-img">
         {% endif %}
     </div>
+
+    {% if product.images.all|length > 1 or product.images.all and not product.main_image %}
+    <div class="product-gallery">
+        <h3>Дополнительные изображения</h3>
+        <div class="gallery-images">
+            {% for img in product.images.all %}
+                {% if not img.is_main %}
+                <div class="gallery-item">
+                    <img src="{{ img.image.url }}" alt="{{ product.name }} - {{ forloop.counter }}">
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
     <div class="product-detail__info">
         <h1 class="product-detail__title">{{ product.name }}</h1>
         <p class="product-detail__desc">{{ product.description }}</p>
@@ -23,5 +40,7 @@
 
         <a href="{% url 'product_list' %}" class="btn btn--link">← Назад к товарам</a>
     </div>
+
+    <!-- Галерея дополнительных изображений — ТЕПЕРЬ ВНИЗУ -->
 </div>
 {% endblock %}
