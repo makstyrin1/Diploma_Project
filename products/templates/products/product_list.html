@@ -6,7 +6,7 @@
     {% if current_category %}
         Товары в категории: {{ current_category.name }}
     {% else %}
-        Каталог бытовой техники
+        Умная техника
     {% endif %}
 </h1>
 
@@ -28,7 +28,7 @@
                     <h3 class="product-card__title">
                         <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
                     </h3>
-                    <p class="product-card__desc">{{ product.description|truncatewords:4 }}</p>
+                    <p class="product-card__desc">{{ product.description|truncatewords:6 }}</p>
                     <div class="product-card__footer">
                         <span class="price">{{ product.price }} ₽</span>
                         {% if user.is_authenticated %}
