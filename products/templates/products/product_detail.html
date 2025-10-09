@@ -4,29 +4,36 @@
 
 {% block content %}
 <div class="product-detail">
-    <!-- Основное изображение -->
+    <!-- Главное изображение -->
     <div class="product-main-image">
         {% if product.main_image %}
-            <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="main-product-img">
+            <img id="main-image" src="{{ product.main_image.url }}" alt="{{ product.name }}" loading="lazy">
         {% else %}
-            <img src="{% static 'images/default-product.jpg' %}" alt="Нет изображения" class="main-product-img">
+            <img id="main-image" src="{% static 'images/default-product.jpg' %}" alt="Нет изображения" loading="lazy">
         {% endif %}
     </div>
 
-    {% if product.images.all|length > 1 or product.images.all and not product.main_image %}
-    <div class="product-gallery">
-        <h3>Дополнительные изображения</h3>
-        <div class="gallery-images">
-            {% for img in product.images.all %}
-                {% if not img.is_main %}
-                <div class="gallery-item">
-                    <img src="{{ img.image.url }}" alt="{{ product.name }} - {{ forloop.counter }}">
+    <!-- Галерея дополнительных изображений -->
+    {% if product.images.all %}
+        {% with extra_images=product.images.all|dictsort:"is_main" %}
+            {% if extra_images|length > 1 or not product.main_image %}
+                <div class="product-gallery">
+
+                    <div class="gallery-images">
+                        {% for img in extra_images %}
+                            {% if not img.is_main %}
+                                <div class="gallery-item" data-src="{{ img.image.url }}">
+                                    <img src="{{ img.image.url }}" alt="{{ product.name }} - {{ forloop.counter }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
+            {% endif %}
+        {% endwith %}
     {% endif %}
+
+    <!-- Информация о товаре -->
     <div class="product-detail__info">
         <h1 class="product-detail__title">{{ product.name }}</h1>
         <p class="product-detail__desc">{{ product.description }}</p>
@@ -40,7 +47,6 @@
 
         <a href="{% url 'product_list' %}" class="btn btn--link">← Назад к товарам</a>
     </div>
-
-    <!-- Галерея дополнительных изображений — ТЕПЕРЬ ВНИЗУ -->
 </div>
+
 {% endblock %}

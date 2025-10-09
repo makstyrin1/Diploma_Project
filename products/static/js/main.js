@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 // ==== Галерея: клик по миниатюре → замена основного изображения ====
-const mainImage = document.querySelector('.main-product-img');
+const mainImage = document.getElementById('main-image');
 const galleryItems = document.querySelectorAll('.gallery-item img');
 
 galleryItems.forEach(img => {
@@ -79,5 +79,5 @@ galleryItems.forEach(img => {
             mainImage.alt = this.alt;
         }
     });
+  });
 });
- });

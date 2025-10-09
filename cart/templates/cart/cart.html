@@ -8,18 +8,21 @@
 <div class="cart-items">
   {% for item in cart_items %}
   <div class="cart-item">
-    <img src="{{ item.product.main_image.url }}" alt="{{ product.name }}" class="cart-img">
+    <img src="{{ item.product.main_image.url }}" alt="{{ item.product.name }}" class="cart-img">
     <div class="cart-item__info">
       <h3>{{ item.product.name }}</h3>
       <p>Цена за шт: {{ item.product.price }} ₽</p>
     </div>
     <div class="cart-item__quantity">× {{ item.quantity }}</div>
-    <div class="cart-item__total">{{ item.total_price }} ₽</div>
     
-    <form method="post" action="{% url 'cart_remove' item.product.pk %}" class="cart-delete-form">
-      {% csrf_token %}
-      <button type="submit" class="cart-item__remove" title="Удалить">×</button>
-    </form>
+    <!-- Объединяем цену и кнопку в один блок -->
+    <div class="cart-item__price-and-remove">
+      <div class="cart-item__total">{{ item.total_price }} ₽</div>
+      <form method="post" action="{% url 'cart_remove' item.product.pk %}" class="cart-delete-form">
+        {% csrf_token %}
+        <button type="submit" class="cart-item__remove" title="Удалить">×</button>
+      </form>
+    </div>
   </div>
   {% endfor %}
 </div>
