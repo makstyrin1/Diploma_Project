@@ -80,4 +80,16 @@ galleryItems.forEach(img => {
         }
     });
   });
+
+// JavaScript для управления аватаром
+    document.getElementById('delete-avatar-btn')?.addEventListener('click', function () {
+        if (confirm('Вы уверены, что хотите удалить аватар?')) {
+            document.getElementById('id_avatar-clear').checked = true;
+            document.getElementById('profile-form').submit();
+        }
+    });
+
+    document.getElementById('change-avatar-btn')?.addEventListener('click', function () {
+        document.getElementById('id_avatar').click();
+    });
 });

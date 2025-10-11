@@ -9,7 +9,7 @@ class ProductListView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return Product.objects.prefetch_related('images')
+        return Product.objects.prefetch_related('images').order_by('?')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,7 +24,7 @@ class ProductListByCategoryView(ListView):
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs['slug'])
-        return Product.objects.filter(category=self.category).prefetch_related('images')
+        return Product.objects.filter(category=self.category).prefetch_related('images').order_by('?')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
