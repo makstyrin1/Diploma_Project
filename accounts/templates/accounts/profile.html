@@ -1,18 +1,115 @@
 {% extends 'products/base.html' %}
+{% load static %}
 {% block title %}Профиль — ТехноМаркет{% endblock %}
 
 {% block content %}
 <div class="profile-page">
     <h1 class="page-title">Личный кабинет</h1>
-    <div class="profile-info">
-        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
-        <p><strong>Email:</strong> {{ user.email|default:"Не указан" }}</p>
-        <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+
+    <!-- Основная информация (всегда видна) -->
+    
+    <!-- Форма редактирования профиля -->
+    <div class="auth-form" style="margin-top: 1.5rem;">
+        <h2 class="form-title">Редактировать профиль</h2>
+        <form method="post" enctype="multipart/form-data" id="profile-form">
+            {% csrf_token %}
+            
+            <!-- Аватар: отображение и управление -->
+            <div class="form-group">
+                {{ form.avatar.label_tag }}
+                {% if user.profile.avatar %}
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 0.5rem;">
+                    <img src="{{ user.profile.avatar.url }}" alt="Аватар"
+                    style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border);">
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;">
+                        <button type="button" class="btn btn--outline btn--sm" id="delete-avatar-btn">Удалить</button>
+                        <button type="button" class="btn btn--sm" id="change-avatar-btn">Изменить</button>
+                    </div>
+                    <div class="profile-info">
+                        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email|default:"Не указан" }}</p>
+                        <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+                    </div>
+                    </div>
+
+                    <!-- Скрытые поля для Django -->
+                    <input type="checkbox" name="avatar-clear" id="id_avatar-clear" style="display: none;">
+                    <input type="file" name="avatar" accept="image/*" id="id_avatar" style="display: none;" onchange="this.form.submit()">
+                {% else %}
+                    <div style="margin-top: 0.5rem;">
+                        <input type="file" name="avatar" accept="image/*" id="id_avatar">
+                    </div>
+                {% endif %}
+
+                {% if form.avatar.errors %}
+                    <div class="form-error">{{ form.avatar.errors }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Остальные поля -->
+            <div class="form-group">
+                {{ form.first_name.label_tag }}
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                    <div class="form-error">{{ form.first_name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.last_name.label_tag }}
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                    <div class="form-error">{{ form.last_name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.address.label_tag }}
+                {{ form.address }}
+                {% if form.address.errors %}
+                    <div class="form-error">{{ form.address.errors }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn--block" style="padding: 10px;">Сохранить изменения</button>
+        </form>
     </div>
 
-    <div class="profile-actions">
+    <!-- Смена пароля -->
+    <div class="auth-form" style="margin-top: 1.5rem;">
+        <h2 class="form-title">Безопасность</h2>
+        <p>Хотите изменить пароль? Нажмите кнопку ниже.</p>
+        <a href="{% url 'change_password' %}" class="btn btn--outline btn--block">Изменить пароль</a>
+    </div>
+
+    <!-- Действия -->
+    <div class="profile-actions" style="margin-top: 2rem;">
         <a href="{% url 'cart_detail' %}" class="btn">Перейти в корзину</a>
         <a href="{% url 'product_list' %}" class="btn btn--outline">Каталог товаров</a>
     </div>
+
+    <!-- Сообщения -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success"
+                style="margin-top: 1.5rem; padding: 0.75rem; background: #e6f4ea; color: #137333; border-radius: var(--radius); text-align: center;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 </div>
+
+<!-- JavaScript для управления аватаром -->
+<script>
+    document.getElementById('delete-avatar-btn')?.addEventListener('click', function () {
+        if (confirm('Вы уверены, что хотите удалить аватар?')) {
+            document.getElementById('id_avatar-clear').checked = true;
+            document.getElementById('profile-form').submit();
+        }
+    });
+
+    document.getElementById('change-avatar-btn')?.addEventListener('click', function () {
+        document.getElementById('id_avatar').click();
+    });
+</script>
 {% endblock %}
