@@ -4,50 +4,80 @@
 {% block content %}
 <h1 class="page-title">
     {% if current_category %}
-        Товары в категории: {{ current_category.name }}
+    Товары в категории: {{ current_category.name }}
     {% else %}
-        Умная техника
+    Умная техника
     {% endif %}
 </h1>
 
 {% if products %}
-    <div class="product-grid">
-        {% for product in products %}
-            <div class="product-card">
-                <div class="product-card__image">
-                    {% if product.main_image %}
-                        <img src="{{ product.main_image.url }}" alt="{{ product.name }}">
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <a href="{{ product.get_absolute_url }}">
+            <div class="product-card__image">
+                {% if product.main_image %}
+                <img src="{{ product.main_image.url }}" alt="{{ product.name }}">
+                {% else %}
+                <div class="product-card__placeholder">📷</div>
+                {% endif %}
+            </div>
+        </a>
+        <div class="product-card__body">
+            <div class="product-card__category">
+                <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
+            </div>
+            <h3 class="product-card__title">
+                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+            </h3>
+            <p class="product-card__desc">{{ product.description|truncatewords:6 }}</p>
+            <div class="product-card__footer">
+                <span class="price">{{ product.price }} ₽</span>
+
+                <!-- Кнопка "В избранное" -->
+                <div class="basket-like">
+                    {% if user.is_authenticated %}
+                    <form class="favorite-form" method="post" action="{% url 'toggle_favorite' product.pk %}"
+                        style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="favorite-btn"
+                            title="{% if product.id in user_favorites %}Убрать из избранного{% else %}В избранное{% endif %}"
+                            data-product-id="{{ product.pk }}">
+                            {% if product.id in user_favorites %}
+                            <img src="/static/icons/heart-filled.svg" alt="В избранном" class="favorite-icon">
+                            {% else %}
+                            <img src="/static/icons/heart-outline.svg" alt="Добавить в избранное" class="favorite-icon">
+                            {% endif %}
+                        </button>
+                    </form>
                     {% else %}
-                        <div class="product-card__placeholder">📷</div>
+                    <a href="{% url 'login' %}" title="Войдите, чтобы добавлять в избранное">
+                        <img src="/static/icons/heart-outline.svg" alt="Like" class="favorite-btn">
+                    </a>
                     {% endif %}
-                </div>
-                <div class="product-card__body">
-                    <div class="product-card__category">
-                        <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
-                    </div>
-                    <h3 class="product-card__title">
-                        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-                    </h3>
-                    <p class="product-card__desc">{{ product.description|truncatewords:6 }}</p>
-                    <div class="product-card__footer">
-                        <span class="price">{{ product.price }} ₽</span>
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'cart_add' product.pk %}" class="btn btn--sm">В корзину</a>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="btn btn--sm btn--disabled">Войдите</a>
-                        {% endif %}
-                    </div>
+                
+
+                <!-- Кнопка "В корзину" -->
+                {% if user.is_authenticated %}
+                <a href="{% url 'cart_add' product.pk %}">
+                    <img src="/static/icons/cart.svg" alt="Корзина" id="basket-product">
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}"><img src="/static/icons/cart.svg" alt="Корзина" id="basket-product"></a>
+                {% endif %}
                 </div>
             </div>
-        {% endfor %}
+        </div>
     </div>
+    {% endfor %}
+</div>
 {% else %}
-    <p class="empty-state">
-        {% if current_category %}
-            В категории "{{ current_category.name }}" пока нет товаров.
-        {% else %}
-            Товары временно отсутствуют.
-        {% endif %}
-    </p>
+<p class="empty-state">
+    {% if current_category %}
+    В категории "{{ current_category.name }}" пока нет товаров.
+    {% else %}
+    Товары временно отсутствуют.
+    {% endif %}
+</p>
 {% endif %}
 {% endblock %}

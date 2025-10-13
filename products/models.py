@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
@@ -72,3 +73,17 @@ class ProductImage(models.Model):
         if self.is_main:
             ProductImage.objects.filter(product=self.product).exclude(pk=self.pk).update(is_main=False)
         super().save(*args, **kwargs)
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='favorited_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'product')  # один товар — один раз в избранном у пользователя
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранные товары'
+
+    def __str__(self):
+        return f"{self.user.username} → {self.product.name}"

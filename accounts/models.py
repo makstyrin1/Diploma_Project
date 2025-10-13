@@ -9,6 +9,7 @@ class Profile(models.Model):
     first_name = models.CharField('Имя', max_length=100, blank=True)
     last_name = models.CharField('Фамилия', max_length=100, blank=True)
     address = models.TextField('Адрес', blank=True)
+    phone = models.CharField('Телефон', max_length=16, blank=True)
     avatar = models.ImageField('Аватар', upload_to='avatars/', blank=True, null=True)
 
     def __str__(self):

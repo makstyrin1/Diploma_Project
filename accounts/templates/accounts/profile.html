@@ -16,7 +16,9 @@
             
             <!-- Аватар: отображение и управление -->
             <div class="form-group">
+                {% if not user.profile.avatar %}
                 {{ form.avatar.label_tag }}
+                {% endif %}
                 {% if user.profile.avatar %}
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 0.5rem;">
                     <img src="{{ user.profile.avatar.url }}" alt="Аватар"
@@ -68,6 +70,14 @@
                 {{ form.address }}
                 {% if form.address.errors %}
                     <div class="form-error">{{ form.address.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.phone.label_tag }}
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <div class="form-error">{{ form.phone.errors }}</div>
                 {% endif %}
             </div>
 

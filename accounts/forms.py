@@ -6,9 +6,10 @@ from .models import Profile
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'address', 'avatar']
+        fields = ['first_name', 'last_name', 'address', 'phone', 'avatar']
         widgets = {
             'address': forms.Textarea(attrs={'rows': 3}),
+            'phone': forms.TextInput(attrs={'placeholder': '+7 (999) 123-45-67',}),
         }
 
 class CustomPasswordChangeForm(PasswordChangeForm):
