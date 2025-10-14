@@ -123,6 +123,7 @@ body {
 .main {
     flex: 1;
     padding: 2rem 0;
+    padding-top: 1rem;
 }
 
 .messages {
@@ -186,11 +187,68 @@ body {
 
 .page-title {
     font-size: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
     color: var(--dark);
 }
 
+/* ======================
+   Поиск с иконкой
+====================== */
+
+.search-form {
+    margin: 0 auto 1rem;
+    max-width: 1500px;
+    width: 100%;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+.search-icon-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.search-icon-btn:hover .search-icon,
+.search-input:focus + .search-icon-btn .search-icon {
+    opacity: 1;
+}
 /* ======================
    Адаптивность
 ====================== */
@@ -232,6 +290,7 @@ body {
         text-align: right;
         order: -1;
     }
+    
 }
 
 .icon {
