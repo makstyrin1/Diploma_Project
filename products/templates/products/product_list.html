@@ -45,9 +45,9 @@
                 <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
             </div>
             <h3 class="product-card__title">
-                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                <a href="{{ product.get_absolute_url }}">{{ product.name|truncatewords:3 }}</a>
             </h3>
-            <p class="product-card__desc">{{ product.description|truncatewords:6 }}</p>
+            <p class="product-card__desc">{{ product.description|truncatewords:20 }}</p>
             <div class="product-card__footer">
                 <span class="price">{{ product.price }} ₽</span>
 

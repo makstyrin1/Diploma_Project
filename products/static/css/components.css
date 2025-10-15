@@ -153,14 +153,17 @@
 }
 .product-card__desc {
     color: var(--gray);
-    margin: 0.5rem 0;
+    margin-top: 0.2rem;
     font-size: 0.95rem;
+    line-height: 1.5em; /* Задайте высоту строки */
+    height: 3em; /* Высота равна line-height * 2 */
+    overflow: hidden;
 }
 .product-card__footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
+    margin-top: 0.rem;
     flex-wrap: wrap; /* Позволяет элементам переноситься при нехватке места */
     gap: 0.5rem; /* Добавляем небольшой отступ между элементами */
 }
@@ -630,7 +633,7 @@
     /* Вместо этого используем общий стиль с flex-wrap и gap */
 
     .price {
-        font-size: 0.60rem;
+        font-size: 0.75rem;
         font-weight: 600;
         margin-bottom: 0;
     }
@@ -650,9 +653,16 @@
     .favorite-remove-btn {
         margin-right: 0 !important;
     }
-
-
+    .product-card__desc {
+        color: var(--gray);
+        margin-bottom: 0.5rem;
+        font-size: 0.6rem;
+        line-height: 1.5em; /* Задайте высоту строки */
+        height: 3em; /* Высота равна line-height * 2 */
+        overflow: hidden;
+    }
 }
+
 
 #basket-product {
     margin-top: 0.5rem;
@@ -665,7 +675,7 @@
 .favorite-btn {
     border: none;
     background: none;
-    margin-top: 0.5rem;
+    margin-top: 0.05rem;
     margin-right: 0.75rem;
 }
 
@@ -682,4 +692,8 @@
     align-items: center; /* Выравнивание по центру по вертикали */
     gap: 0.5rem; /* Отступ между иконками */
     white-space: nowrap; /* Запрет переноса */
+}
+
+.cart-btn {
+    filter: brightness(0) saturate(100%) invert(50%);
 }
