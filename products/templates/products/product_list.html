@@ -57,25 +57,6 @@
                   <div class="carousel-product-footer">
                     <span class="price">{{ product.price }} ₽</span>
                     <div class="basket-like">
-                      <!-- {% if user.is_authenticated %}
-                        <form class="favorite-form" method="post" action="{% url 'toggle_favorite' product.pk %}">
-                          {% csrf_token %}
-                          <button type="submit" class="favorite-btn" title="{% if product.id in user_favorites %}Убрать из избранного{% else %}В избранное{% endif %}">
-                            {% if product.id in user_favorites %}
-                              <img src="{% static 'icons/heart-filled.svg' %}" alt="В избранном" class="favorite-icon" width="20">
-                            {% else %}
-                              <img src="{% static 'icons/heart-outline.svg' %}" alt="Добавить в избранное" class="favorite-icon" width="20">
-                            {% endif %}
-                          </button>
-                        </form>
-                      {% else %}
-                        <a href="{% url 'login' %}" class="favorite-btn" title="Войдите, чтобы добавлять в избранное">
-                          <img src="{% static 'icons/heart-outline.svg' %}" alt="Like" class="favorite-icon" width="20">
-                        </a>
-                      {% endif %}
-                      <a href="{% url 'cart_add' product.pk %}" class="cart-btn" title="В корзину">
-                        <img src="{% static 'icons/cart.svg' %}" alt="Корзина" width="20">
-                      </a> -->
                     </div>
                   </div>
                 </div>
