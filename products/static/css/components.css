@@ -703,59 +703,92 @@ textarea {
 }
 
 /* ============= КАРУСЕЛЬ С ТОВАРАМИ ============= */
+#heroCarousel {
+  position: relative;
+}
+
 #heroCarousel .carousel-inner {
-  padding: auto;
-  height: 100%;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.carousel-product-card {
-  display: flex;
-  height: 100%;
-  background: white;
+#heroCarousel .carousel-indicators {
+  bottom: 12px;
+  z-index: 2;
 }
 
-/* Изображение слева — растягиваем на всю высоту */
+@media (max-width: 768px) {
+  #heroCarousel .carousel-indicators {
+    display: none;
+  }
+}
+
+#heroCarousel .carousel-control-prev,
+#heroCarousel .carousel-control-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+  z-index: 2;
+}
+
+#heroCarousel .carousel-control-next {
+  right: 12px;
+  left: auto;
+}
+
+#heroCarousel .carousel-control-prev {
+  left: 12px;
+  right: auto;
+}
+
+#heroCarousel .carousel-control-prev-icon,
+#heroCarousel .carousel-control-next-icon {
+  filter: invert(0.3);
+}
+
+.carousel-product-card {
+  display: flex;
+  background: white;
+  height: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
 .carousel-product-image-wrapper {
   width: 170px;
   min-width: 170px;
-  height: 100%; /* ← важно */
+  height: 100%;
   display: flex;
-  align-items: stretch; /* ← чтобы заполнить высоту */
+  align-items: center;
   justify-content: center;
   background: #f9f9f9;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
 .carousel-product-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* ← чтобы не обрезалось */
   object-position: center;
 }
 
 .carousel-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 2rem;
   color: #ccc;
 }
 
-/* Контент справа — тоже на всю высоту */
 .carousel-product-content {
   flex: 1;
-  padding: 1rem 1.25rem;
+  padding: 0 0 0 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* ← ключевое изменение! */
-  height: 100%;
+  justify-content: space-between;
 }
 
 .carousel-product-content .product-card__category a {
@@ -780,7 +813,11 @@ textarea {
   color: #6c757d;
   margin: 0.5rem 0;
   line-height: 1.4;
-  flex-grow: 1;
+  max-height: 40px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .carousel-product-footer {
@@ -794,25 +831,29 @@ textarea {
   font-weight: bold;
   font-size: 1.25rem;
   color: #e74c3c;
+  white-space: normal;
+  word-break: break-word;
+  min-width: 0;
 }
 
-/* Адаптив — только уменьшаем, не перестраиваем */
+/* Адаптив */
 @media (max-width: 768px) {
-  #heroCarousel .carousel-inner {
-    height: 100%;
+  .carousel-product-card {
+    padding: 10px;
   }
   .carousel-product-image-wrapper {
     width: 130px;
     min-width: 130px;
   }
   .carousel-product-content {
-    padding: 0.8rem 1rem;
+    padding: 0 0 0 12px;
   }
   .carousel-product-content .product-card__title {
     font-size: 1.05rem;
   }
   .carousel-product-content .product-card__desc {
     font-size: 0.85rem;
+    max-height: 36px;
   }
   .carousel-product-footer .price {
     font-size: 1.1rem;
@@ -820,21 +861,22 @@ textarea {
 }
 
 @media (max-width: 480px) {
-  #heroCarousel .carousel-inner {
-    height: 100%;
+  .carousel-product-card {
+    padding: 8px;
   }
   .carousel-product-image-wrapper {
     width: 110px;
     min-width: 110px;
   }
   .carousel-product-content {
-    padding: 0.7rem 0.9rem;
+    padding: 0 0 0 10px;
   }
   .carousel-product-content .product-card__title {
     font-size: 1rem;
   }
   .carousel-product-content .product-card__desc {
     font-size: 0.8rem;
+    max-height: 32px;
   }
   .carousel-product-footer .price {
     font-size: 1rem;
