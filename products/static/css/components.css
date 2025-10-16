@@ -859,10 +859,6 @@ textarea {
   .carousel-product-footer .price {
     font-size: 1.1rem;
   }
-  #heroCarousel .carousel-control-prev,
-  #heroCarousel .carousel-control-next {
-  display: none !important;
-}
 }
 
 @media (max-width: 480px) {
@@ -886,14 +882,4 @@ textarea {
   .carousel-product-footer .price {
     font-size: 1rem;
   }
-  #heroCarousel .carousel-control-prev,
-  #heroCarousel .carousel-control-next {
-  display: none !important;
-}
-} /* ← ЭТА СКОБКА БЫЛА УТЕРЯНА! */
-
-/* Теперь это правило — ВНЕ медиа-запроса */
-#heroCarousel .carousel-control-prev,
-#heroCarousel .carousel-control-next {
-  display: none !important;
 }
