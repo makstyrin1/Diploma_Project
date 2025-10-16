@@ -773,9 +773,10 @@ textarea {
 
 .carousel-product-image {
   width: 100%;
-  height: 100%;
+  height: 150px;
   object-fit: contain; /* ← чтобы не обрезалось */
   object-position: center;
+  background-color: #ffffff;
 }
 
 .carousel-placeholder {
@@ -812,7 +813,7 @@ textarea {
   font-size: 0.9rem;
   color: #6c757d;
   margin: 0.5rem 0;
-  line-height: 1.4;
+  line-height: 1,4;
   max-height: 40px;
   overflow: hidden;
   display: -webkit-box;
@@ -881,4 +882,10 @@ textarea {
   .carousel-product-footer .price {
     font-size: 1rem;
   }
+} /* ← ЭТА СКОБКА БЫЛА УТЕРЯНА! */
+
+/* Теперь это правило — ВНЕ медиа-запроса */
+#heroCarousel .carousel-control-prev,
+#heroCarousel .carousel-control-next {
+  display: none !important;
 }
