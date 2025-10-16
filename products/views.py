@@ -23,6 +23,7 @@ class ProductListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['carousel_products'] = Product.objects.order_by('?')[:3]
         context['current_category'] = None
         context['search_query'] = self.request.GET.get('q', '')
         if self.request.user.is_authenticated:

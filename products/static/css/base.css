@@ -112,11 +112,11 @@ body {
     color: white;
     font-size: 0.6rem;
     padding: 0.01rem 0.4rem;
-    padding-top: 0.1rem;
+    padding-top: 0.05rem;
     border-radius: 50%;
     position: absolute;
-    top: -8px;
-    right: -10px;
+    top: -1px;
+    right: -8px;
     text-align: center;
 }
 
@@ -424,3 +424,4 @@ body {
         color: var(--primary);
     }
 }
+
