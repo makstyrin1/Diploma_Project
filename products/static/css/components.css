@@ -737,18 +737,19 @@ textarea {
 }
 
 #heroCarousel .carousel-control-next {
-  right: 12px;
-  left: auto;
+  background: none;
+  border: none;
 }
 
 #heroCarousel .carousel-control-prev {
-  left: 12px;
-  right: auto;
+  background: none;
+  border: none;
 }
 
 #heroCarousel .carousel-control-prev-icon,
 #heroCarousel .carousel-control-next-icon {
-  filter: invert(0.3);
+  filter: invert(50%);
+  opacity: 0.15;
 }
 
 .carousel-product-card {
@@ -774,7 +775,7 @@ textarea {
 .carousel-product-image {
   width: 100%;
   height: 150px;
-  object-fit: contain; /* ← чтобы не обрезалось */
+  object-fit: contain;
   object-position: center;
   background-color: #ffffff;
 }
@@ -796,6 +797,7 @@ textarea {
   font-size: 0.85rem;
   color: #6c757d;
   text-decoration: none;
+  margin-left: 0.5rem;
 }
 
 .carousel-product-content .product-card__title {
@@ -807,25 +809,27 @@ textarea {
 .carousel-product-content .product-card__title a {
   color: #212529;
   text-decoration: none;
+  margin-left: 0.5rem;
 }
 
 .carousel-product-content .product-card__desc {
   font-size: 0.9rem;
   color: #6c757d;
-  margin: 0.5rem 0;
-  line-height: 1,4;
-  max-height: 40px;
+  margin-right: 0.5rem;
+  line-height: 1.4;
+  max-height: calc(0.9rem * 1.4 * 3);
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  margin-left: 0.5rem;
 }
 
 .carousel-product-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto;
+  margin-top: 1rem;
 }
 
 .carousel-product-footer .price {
@@ -875,11 +879,22 @@ textarea {
   .carousel-product-content .product-card__title {
     font-size: 1rem;
   }
-  .carousel-product-content .product-card__desc {
-    font-size: 0.8rem;
-    max-height: 32px;
-  }
-  .carousel-product-footer .price {
-    font-size: 1rem;
-  }
+.carousel-product-content .product-card__desc {
+    line-height: 1.4;
+    font-size: 0.85rem;
+    margin-right: 1.75rem;
+    max-height: calc(0.8rem * 1.4 * 3);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-left: 0.5rem;
+    margin-bottom: 0;
 }
+}
+.carousel-product-footer .price {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 0.5rem;
+  }
+

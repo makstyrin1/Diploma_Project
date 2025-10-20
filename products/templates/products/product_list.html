@@ -33,10 +33,20 @@
           ></button>
         {% endfor %}
       </div>
-        <div class="carousel-inner">
-          {% for product in carousel_products %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-              <div class="carousel-product-card">
+      <div class="carousel-inner">
+        {% for product in carousel_products %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="carousel-product-card">
+                {% if carousel_products|length > 1 %}
+                  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Назад</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Вперёд</span>
+                  </button>
+                {% endif %}
                 <!-- Изображение СЛЕВА -->
                 <div class="carousel-product-image-wrapper">
                   {% if product.main_image %}
@@ -71,16 +81,6 @@
           {% endfor %}
         </div>
       </div>
-      {% if carousel_products|length > 1 %}
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Назад</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Вперёд</span>
-        </button>
-      {% endif %}
     </div>
   
 
