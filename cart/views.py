@@ -39,3 +39,20 @@ def cart_remove(request, product_id):
         CartItem.objects.filter(user=request.user, product_id=product_id).delete()
         messages.info(request, 'Товар удалён из корзины.')
     return redirect('cart_detail')
+
+@login_required
+def cart_increase(request, product_id):
+    cart_item = get_object_or_404(CartItem, user=request.user, product_id=product_id)
+    cart_item.quantity += 1
+    cart_item.save()
+    return redirect('cart_detail')
+
+@login_required
+def cart_decrease(request, product_id):
+    cart_item = get_object_or_404(CartItem, user=request.user, product_id=product_id)
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+    else:
+        cart_item.delete() 
+    return redirect('cart_detail')

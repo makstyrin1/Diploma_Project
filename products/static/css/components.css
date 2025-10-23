@@ -375,8 +375,8 @@
 }
 
 .cart-item__remove svg {
-    width: 18px;
-    height: 18px;
+    width: 28px;
+    height: 28px;
     stroke: currentColor;
     fill: none;
 }
@@ -397,8 +397,8 @@
         height: 32px;
     }
     .cart-item__remove svg {
-        width: 16px;
-        height: 16px;
+        width: 28px;
+        height: 28px;
     }
 }
 

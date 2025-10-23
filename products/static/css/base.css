@@ -425,3 +425,27 @@ body {
     }
 }
 
+.cart-item__quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-btn {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.quantity-btn:hover {
+  background: #e0e0e0;
+}
+
+.quantity-display {
+  min-width: 24px;
+  text-align: center;
+}
