@@ -308,7 +308,7 @@
 }
 
 .cart-img {
-    width: 70px;
+    width: auto;
     height: 70px;
     object-fit: cover;
     border-radius: 4px;

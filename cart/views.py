@@ -13,7 +13,8 @@ def cart_detail(request):
     return render(request, 'cart/cart.html', {
         'cart_items': cart_items,
         'total': total
-    }) 
+    })
+
 
 @login_required
 def cart_add(request, product_id):
@@ -30,8 +31,8 @@ def cart_add(request, product_id):
         messages.success(request, f'{product.name} добавлен в корзину!')
     except IntegrityError:
         messages.error(request, 'Ошибка при добавлении товара.')
-    
     return redirect('product_list')
+
 
 @login_required
 def cart_remove(request, product_id):
@@ -40,12 +41,14 @@ def cart_remove(request, product_id):
         messages.info(request, 'Товар удалён из корзины.')
     return redirect('cart_detail')
 
+
 @login_required
 def cart_increase(request, product_id):
     cart_item = get_object_or_404(CartItem, user=request.user, product_id=product_id)
     cart_item.quantity += 1
     cart_item.save()
     return redirect('cart_detail')
+
 
 @login_required
 def cart_decrease(request, product_id):
@@ -54,5 +57,5 @@ def cart_decrease(request, product_id):
         cart_item.quantity -= 1
         cart_item.save()
     else:
-        cart_item.delete() 
+        cart_item.delete()
     return redirect('cart_detail')
