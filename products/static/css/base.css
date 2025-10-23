@@ -487,6 +487,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: gray;
 }
 
 .quantity-btn:hover {

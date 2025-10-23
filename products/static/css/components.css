@@ -308,8 +308,8 @@
 }
 
 .cart-img {
-    width: auto;
-    height: 70px;
+    width: 70px;
+    height: auto;
     object-fit: cover;
     border-radius: 4px;
     flex-shrink: 0;
@@ -573,6 +573,7 @@
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
+    color: gray;
 }
 
 .btn--primary {
