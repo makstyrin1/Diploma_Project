@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import IntegrityError
-from .models import CartItem
+from .models import CartItem, OrderItem, Order
 from products.models import Product
 
 
@@ -59,3 +59,40 @@ def cart_decrease(request, product_id):
     else:
         cart_item.delete()
     return redirect('cart_detail')
+
+@login_required
+def cart_checkout(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    if not cart_items.exists():
+        messages.warning(request, 'Нельзя оформить пустой заказ.')
+        return redirect('cart_detail')
+
+    # Создаём заказ
+    total = sum(item.total_price for item in cart_items)
+    order = Order.objects.create(user=request.user, total_amount=total)
+
+    # Переносим товары из корзины в заказ
+    for item in cart_items:
+        OrderItem.objects.create(
+            order=order,
+            product=item.product,
+            quantity=item.quantity,
+            price=item.product.price  # фиксируем цену на момент заказа
+        )
+
+    # Очищаем корзину
+    cart_items.delete()
+
+    messages.success(request, 'Заказ успешно оформлен!')
+    return redirect('order_detail', order_id=order.id)
+
+@login_required
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    return render(request, 'cart/order_detail.html', {'order': order})
+
+
+@login_required
+def order_list(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'cart/order_list.html', {'orders': orders})

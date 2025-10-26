@@ -867,6 +867,11 @@ textarea {
 }
 
 @media (max-width: 480px) {
+    
+  .btn_order {
+    padding: 0.6rem 2.5rem; 
+    margin-top: 7.5px
+  }
   .carousel-product-card {
     padding: 8px;
   }
@@ -899,3 +904,19 @@ textarea {
     margin-left: 0.5rem;
   }
 
+.order-list-desktop {
+        display: none !important;
+    }
+
+    .order-list-mobile {
+        display: block;
+    }
+
+    @media (min-width: 768px) {
+        .order-list-desktop {
+            display: block !important;
+        }
+        .order-list-mobile {
+            display: none;
+        }
+    }

@@ -8,7 +8,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.contrib import messages
 from .models import Profile
 from .forms import ProfileForm, CustomPasswordChangeForm
-
+from cart.models import Order
 
 
 class SignUpView(CreateView):
@@ -31,7 +31,12 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     def get_object(self):
         profile, created = Profile.objects.get_or_create(user=self.request.user)
         return profile
-    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Добавляем последние 10 заказов
+        return context
+
     def form_valid(self, form):
         messages.success(self.request, "Профиль успешно обновлен!")
         return super().form_valid(form)

@@ -7,13 +7,13 @@
     <h1 class="page-title">Личный кабинет</h1>
 
     <!-- Основная информация (всегда видна) -->
-    
+
     <!-- Форма редактирования профиля -->
     <div class="auth-form" style="margin-top: 1.5rem;">
         <h2 class="form-title">Редактировать профиль</h2>
         <form method="post" enctype="multipart/form-data" id="profile-form">
             {% csrf_token %}
-            
+
             <!-- Аватар: отображение и управление -->
             <div class="form-group">
                 {% if not user.profile.avatar %}
@@ -22,7 +22,7 @@
                 {% if user.profile.avatar %}
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 0.5rem;">
                     <img src="{{ user.profile.avatar.url }}" alt="Аватар"
-                    style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border);">
+                        style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border);">
                     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;">
                         <button type="button" class="btn btn--outline btn--sm" id="delete-avatar-btn">Удалить</button>
                         <button type="button" class="btn btn--sm" id="change-avatar-btn">Изменить</button>
@@ -32,19 +32,20 @@
                         <p><strong>Email:</strong> {{ user.email|default:"Не указан" }}</p>
                         <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
                     </div>
-                    </div>
+                </div>
 
-                    <!-- Скрытые поля для Django -->
-                    <input type="checkbox" name="avatar-clear" id="id_avatar-clear" style="display: none;">
-                    <input type="file" name="avatar" accept="image/*" id="id_avatar" style="display: none;" onchange="this.form.submit()">
+                <!-- Скрытые поля для Django -->
+                <input type="checkbox" name="avatar-clear" id="id_avatar-clear" style="display: none;">
+                <input type="file" name="avatar" accept="image/*" id="id_avatar" style="display: none;"
+                    onchange="this.form.submit()">
                 {% else %}
-                    <div style="margin-top: 0.5rem;">
-                        <input type="file" name="avatar" accept="image/*" id="id_avatar">
-                    </div>
+                <div style="margin-top: 0.5rem;">
+                    <input type="file" name="avatar" accept="image/*" id="id_avatar">
+                </div>
                 {% endif %}
 
                 {% if form.avatar.errors %}
-                    <div class="form-error">{{ form.avatar.errors }}</div>
+                <div class="form-error">{{ form.avatar.errors }}</div>
                 {% endif %}
             </div>
 
@@ -53,7 +54,7 @@
                 {{ form.first_name.label_tag }}
                 {{ form.first_name }}
                 {% if form.first_name.errors %}
-                    <div class="form-error">{{ form.first_name.errors }}</div>
+                <div class="form-error">{{ form.first_name.errors }}</div>
                 {% endif %}
             </div>
 
@@ -61,7 +62,7 @@
                 {{ form.last_name.label_tag }}
                 {{ form.last_name }}
                 {% if form.last_name.errors %}
-                    <div class="form-error">{{ form.last_name.errors }}</div>
+                <div class="form-error">{{ form.last_name.errors }}</div>
                 {% endif %}
             </div>
 
@@ -69,7 +70,7 @@
                 {{ form.address.label_tag }}
                 {{ form.address }}
                 {% if form.address.errors %}
-                    <div class="form-error">{{ form.address.errors }}</div>
+                <div class="form-error">{{ form.address.errors }}</div>
                 {% endif %}
             </div>
 
@@ -77,7 +78,7 @@
                 {{ form.phone.label_tag }}
                 {{ form.phone }}
                 {% if form.phone.errors %}
-                    <div class="form-error">{{ form.phone.errors }}</div>
+                <div class="form-error">{{ form.phone.errors }}</div>
                 {% endif %}
             </div>
 
@@ -97,14 +98,20 @@
         <a href="{% url 'product_list' %}" class="btn btn--outline">Каталог товаров</a>
     </div>
 
+    <!-- Мои заказы — кнопка -->
+    <div class="auth-form" style="margin-top: 2rem;">
+        <h2 class="form-title">Заказы</h2>
+        <a href="{% url 'order_list' %}" class="btn btn--block">Посмотреть мои заказы</a>
+    </div>
+
     <!-- Сообщения -->
     {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success"
-                style="margin-top: 1.5rem; padding: 0.75rem; background: #e6f4ea; color: #137333; border-radius: var(--radius); text-align: center;">
-                {{ message }}
-            </div>
-        {% endfor %}
+    {% for message in messages %}
+    <div class="alert alert-success"
+        style="margin-top: 1.5rem; padding: 0.75rem; background: #e6f4ea; color: #137333; border-radius: var(--radius); text-align: center;">
+        {{ message }}
+    </div>
+    {% endfor %}
     {% endif %}
 </div>
 {% endblock %}

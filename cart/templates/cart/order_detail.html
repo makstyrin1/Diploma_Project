@@ -1,0 +1,19 @@
+{% extends 'products/base.html' %}
+{% block title %}Заказ {{ order.id }} — ТехноМаркет{% endblock %}
+
+{% block content %}
+<h1>Заказ №{{ order.id }}</h1>
+<p>Дата: {{ order.created_at|date:"d.m.Y H:i" }}</p>
+<p>Итого: {{ order.total_amount }} ₽</p>
+
+<h2>Товары:</h2>
+<ul>
+  {% for item in order.items.all %}
+    <li>{{ item.quantity }} × {{ item.product.name }} — {{ item.total_price }} ₽</li>
+  {% endfor %}
+</ul>
+
+<div>
+    <a href="{% url 'product_list' %}" class="btn">Продолжить покупки</a>
+</div>
+{% endblock %}

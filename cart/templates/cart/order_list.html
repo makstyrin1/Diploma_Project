@@ -1,0 +1,92 @@
+<!-- cart/templates/cart/order_list.html -->
+{% extends 'products/base.html' %}
+{% load static %}
+{% block title %}Мои заказы — ТехноМаркет{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+    <h1 class="page-title">Мои заказы</h1>
+
+    {% if orders %}
+        <!-- Таблица для десктопов (≥768px) -->
+        <div class="order-list-desktop auth-form" style="display: none;">
+            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--border);">
+                        <th style="text-align: left; padding: 0.75rem;">№ заказа</th>
+                        <th style="text-align: left; padding: 0.75rem;">Дата</th>
+                        <th style="text-align: right; padding: 0.75rem;">Сумма</th>
+                        <th style="text-align: center; padding: 0.75rem;">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr style="border-bottom: 1px solid var(--light-gray);">
+                        <td style="padding: 0.75rem;">{{ order.id }}</td>
+                        <td style="padding: 0.75rem;">{{ order.created_at|date:"d.m.Y H:i" }}</td>
+                        <td style="padding: 0.75rem; text-align: right;">{{ order.total_amount }} ₽</td>
+                        <td style="padding: 0.75rem; text-align: center;">
+                            <a href="{% url 'order_detail' order.id %}" class="btn btn--sm btn--outline">Подробнее</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Карточки для мобильных (<768px) -->
+        <div class="order-list-mobile">
+            {% for order in orders %}
+            <div class="order-card auth-form" style="margin-bottom: 1rem; padding: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem;">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.1rem; color: var(--dark);">Заказ №{{ order.id }}</h3>
+                        <p style="margin: 0.25rem 0; color: var(--gray); font-size: 0.9rem;">
+                            {{ order.created_at|date:"d.m.Y H:i" }}
+                        </p>
+                    </div>
+                    <div style="text-align: right; white-space: nowrap;">
+                        <div style="font-weight: bold; color: var(--primary); font-size: 1.1rem;">
+                            {{ order.total_amount }} ₽
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <a href="{% url 'order_detail' order.id %}" class="btn btn--sm btn--outline">Подробнее</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>У вас пока нет заказов.</p>
+            <a href="{% url 'product_list' %}" class="btn">Выбрать товары</a>
+        </div>
+    {% endif %}
+
+    <div style="margin-top: 1.5rem; text-align: center;">
+        <a href="{% url 'profile' %}" class="btn btn--outline">← Назад в профиль</a>
+    </div>
+</div>
+
+<style>
+    /* По умолчанию показываем карточки, скрываем таблицу */
+    .order-list-desktop {
+        display: none !important;
+    }
+
+    .order-list-mobile {
+        display: block;
+    }
+
+    /* На экранах ≥768px — наоборот */
+    @media (min-width: 768px) {
+        .order-list-desktop {
+            display: block !important;
+        }
+        .order-list-mobile {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}
