@@ -13,8 +13,6 @@
     <div class="cart-item__info">
       <h3>{{ item.product.name }}</h3>
       <p>Цена за шт: {{ item.product.price }} ₽</p>
-
-      <!-- Единая строка: +/- | цена | удалить -->
       <div class="cart-item__controls-row">
         <div class="cart-item__quantity-controls">
           <form method="post" action="{% url 'cart_decrease' item.product.pk %}" class="inline-form">

@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block content %}
-  <!-- Форма поиска -->
   <form method="get" class="search-form">
     <div class="search-wrapper">
       <input type="text" name="q" value="{{ request.GET.q|default:'' }}" placeholder="Поиск..." class="search-input">
@@ -20,7 +19,6 @@
 
   {% if not current_category %}
   <div>
-    <!-- Карусель с товарами -->
     <h4>Товары дня</h4>
     <div id="heroCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
       <div class="carousel-indicators">
@@ -48,7 +46,6 @@
                     <span class="visually-hidden">Вперёд</span>
                   </button>
                 {% endif %}
-                <!-- Изображение СЛЕВА -->
                 <div class="carousel-product-image-wrapper">
                   {% if product.main_image %}
                     <img src="{{ product.main_image.url }}" alt="{{ product.name }}" class="carousel-product-image">
@@ -56,7 +53,6 @@
                     <div class="carousel-placeholder">📷</div>
                   {% endif %}
                 </div>
-                <!-- Контент СПРАВА -->
                 <div class="carousel-product-content">
                   <div class="product-card__category">
                     <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
@@ -84,10 +80,7 @@
       </div>
     </div>
     {% endif %}
-  
 
-
-  <!-- Заголовок -->
   <h1 class="page-title">
     {% if current_category %}
       {{ current_category.name }}
@@ -95,8 +88,6 @@
       Умная техника
     {% endif %}
   </h1>
-
-  <!-- Список товаров -->
   {% if products %}
     <div class="product-grid">
       {% for product in products %}

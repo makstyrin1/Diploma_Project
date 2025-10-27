@@ -15,18 +15,13 @@
 <body>
     <header class="header">
         <div class="container header__container">
-            <!-- Бургер-кнопка (только на мобильных) -->
             <button class="burger-menu" id="burgerToggle" aria-label="Меню">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-
-            <!-- Левая часть: логотип + категории -->
             <div class="header__left" id="mobileMenu">
                 <a href="{% url 'home' %}" class="header__logo">SmartHub</a>
-
-                <!-- Выпадающее меню категорий -->
                 <div class="dropdown">
                     <button class="dropdown__toggle" id="categoriesToggle">
                         Категории ▼
@@ -39,23 +34,16 @@
                     </ul>
                 </div>
             </div>
-
-            <!-- Правая часть: аккаунт, избранное, корзина -->
             <div class="header__right">
                 {% if user.is_authenticated %}
                     <a href="{% url 'profile' %}" class="header__user">{{ user.first_name|default:user.username }}</a>
-                    
-                    <!-- Кнопка выхода -->
                     <form method="post" action="{% url 'logout' %}" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="header__user header__logout-btn">Выйти</button>
                     </form>
-                    <!-- Ссылка на избранное -->
                     <a href="{% url 'favorite_list' %}" class="header__favorites">
                         <img src="{% static 'icons/heart-outline.svg' %}" alt="Избранное" class="icon">
                     </a>
-
-                    <!-- Корзина -->
                     <a href="{% url 'cart_detail' %}" class="header__cart">
                         <img src="{% static 'icons/cart.svg' %}" alt="Корзина" class="icon">
                         {% with cart_count=user.cartitem_set.count %}
@@ -93,8 +81,6 @@
             <p>&copy; 2025 ТехноМаркет. Все права защищены.</p>
         </div>
     </footer>
-
-    <!-- Модальное окно для подтверждения удаления -->
     <div id="deleteModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close">&times;</span>

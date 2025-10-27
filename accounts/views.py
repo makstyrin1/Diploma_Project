@@ -34,7 +34,6 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Добавляем последние 10 заказов
         return context
 
     def form_valid(self, form):

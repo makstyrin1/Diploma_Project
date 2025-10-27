@@ -4,7 +4,6 @@
 
 {% block content %}
 <div class="product-detail">
-    <!-- Главное изображение -->
     <div class="product-main-image">
         {% if product.main_image %}
             <img id="main-image" src="{{ product.main_image.url }}" alt="{{ product.name }}" loading="lazy">
@@ -12,8 +11,6 @@
             <img id="main-image" src="{% static 'images/default-product.jpg' %}" alt="Нет изображения" loading="lazy">
         {% endif %}
     </div>
-
-    <!-- Галерея дополнительных изображений -->
     {% if product.images.all %}
         {% with extra_images=product.images.all|dictsort:"is_main" %}
             {% if extra_images|length > 1 or not product.main_image %}
@@ -32,8 +29,6 @@
             {% endif %}
         {% endwith %}
     {% endif %}
-
-    <!-- Информация о товаре -->
     <div class="product-detail__info">
         <h1 class="product-detail__title">{{ product.name }}</h1>
         <p class="product-detail__desc">{{ product.description }}</p>

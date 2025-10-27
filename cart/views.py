@@ -67,20 +67,17 @@ def cart_checkout(request):
         messages.warning(request, 'Нельзя оформить пустой заказ.')
         return redirect('cart_detail')
 
-    # Создаём заказ
     total = sum(item.total_price for item in cart_items)
     order = Order.objects.create(user=request.user, total_amount=total)
 
-    # Переносим товары из корзины в заказ
     for item in cart_items:
         OrderItem.objects.create(
             order=order,
             product=item.product,
             quantity=item.quantity,
-            price=item.product.price  # фиксируем цену на момент заказа
+            price=item.product.price
         )
 
-    # Очищаем корзину
     cart_items.delete()
 
     messages.success(request, 'Заказ успешно оформлен!')

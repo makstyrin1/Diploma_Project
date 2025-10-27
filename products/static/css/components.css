@@ -118,10 +118,10 @@
     justify-content: center;
     background: #ffffff;
     padding-top: 20px;
-    height: 300px; /* фиксированная высота карточки */
+    height: 300px;
     overflow: hidden;
 }
-/* ✅ Изображения — целиком, без обрезки, без искажений */
+
 .product-card__image img {
     max-width: 100%;
     max-height: 100%;
@@ -155,8 +155,8 @@
     color: var(--gray);
     margin-top: 0.2rem;
     font-size: 0.95rem;
-    line-height: 1.5em; /* Задайте высоту строки */
-    height: 3em; /* Высота равна line-height * 2 */
+    line-height: 1.5em;
+    height: 3em;
     overflow: hidden;
 }
 .product-card__footer {
@@ -164,19 +164,15 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 0.rem;
-    flex-wrap: wrap; /* Позволяет элементам переноситься при нехватке места */
-    gap: 0.5rem; /* Добавляем небольшой отступ между элементами */
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 .price {
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--primary);
-    white-space: nowrap; /* Запрещаем перенос цены */
+    white-space: nowrap;
 }
-
-/* ======================
-   Страница деталей товара — ВСЕГДА ВЕРТИКАЛЬНО
-====================== */
 
 .product-detail {
     background: white;
@@ -282,10 +278,6 @@
     margin-bottom: 1.5rem;
 }
 
-/* ======================
-   Корзина — цена и кнопка СПРАВА, иконка корзины
-====================== */
-
 .cart-items {
     background: white;
     border-radius: var(--radius);
@@ -335,14 +327,13 @@
     white-space: nowrap;
 }
 
-/* Блок с ценой и кнопкой — прижат к правому краю */
 .cart-item__price-and-remove {
     display: flex;
     align-items: center;
     gap: 0.8rem;
     white-space: nowrap;
     flex-shrink: 0;
-    margin-left: auto; /* ← КЛЮЧ: прижимает к правому краю */
+    margin-left: auto;
 }
 
 .cart-item__total {
@@ -351,7 +342,6 @@
     font-size: 1.2rem;
 }
 
-/* ✅ Красивая кнопка удаления — на всех экранах */
 .cart-item__remove {
     width: 36px;
     height: 36px;
@@ -402,10 +392,6 @@
     }
 }
 
-/* ======================
-   Профиль
-====================== */
-
 .profile-page .profile-info {
     background: white;
     padding: 1.5rem;
@@ -418,10 +404,6 @@
     gap: 1rem;
     justify-content: center;
 }
-
-/* ======================
-   Боковая панель и макет
-====================== */
 
 .layout {
     display: flex;
@@ -458,10 +440,6 @@
 .content {
     flex: 1;
 }
-
-/* ======================
-   Выпадающее меню
-====================== */
 
 .dropdown {
     position: relative;
@@ -517,10 +495,6 @@
 .dropdown__menu a:hover {
     background: #f0f0f0;
 }
-
-/* ======================
-   Модальное окно
-====================== */
 
 .modal {
     display: none;
@@ -585,10 +559,6 @@
     background: var(--primary-dark);
 }
 
-/* ======================
-   Адаптивность (мобильные улучшения)
-====================== */
-
 @media (max-width: 768px) {
     .header__right {
         display: flex;
@@ -605,7 +575,7 @@
     }
 
     .product-card__image {
-        height: 160px; /* адаптация под мобильные */
+        height: 160px;
     }
 
     .product-card__body {
@@ -629,9 +599,6 @@
         margin-bottom: 0.05rem;
         line-height: 1.15;
     }
-
-    /* УДАЛЕНО: flex-direction: column из product-card__footer */
-    /* Вместо этого используем общий стиль с flex-wrap и gap */
 
     .price {
         font-size: 0.75rem;
@@ -658,12 +625,11 @@
         color: var(--gray);
         margin-bottom: 0.5rem;
         font-size: 0.6rem;
-        line-height: 1.5em; /* Задайте высоту строки */
-        height: 3em; /* Высота равна line-height * 2 */
+        line-height: 1.5em;
+        height: 3em;
         overflow: hidden;
     }
 }
-
 
 #basket-product {
     margin-top: 0.5rem;
@@ -690,9 +656,9 @@
 .basket-like {
     display: flex;
     justify-content: end;
-    align-items: center; /* Выравнивание по центру по вертикали */
-    gap: 0.5rem; /* Отступ между иконками */
-    white-space: nowrap; /* Запрет переноса */
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
 }
 
 .cart-btn {
@@ -703,7 +669,6 @@ textarea {
     padding-left: 5px;
 }
 
-/* ============= КАРУСЕЛЬ С ТОВАРАМИ ============= */
 #heroCarousel {
   position: relative;
 }
@@ -842,7 +807,6 @@ textarea {
   min-width: 0;
 }
 
-/* Адаптив */
 @media (max-width: 768px) {
   .carousel-product-card {
     padding: 10px;
@@ -908,9 +872,9 @@ textarea {
         display: none !important;
     }
 
-    .order-list-mobile {
-        display: block;
-    }
+.order-list-mobile {
+    display: block;
+}
 
     @media (min-width: 768px) {
         .order-list-desktop {
@@ -920,3 +884,20 @@ textarea {
             display: none;
         }
     }
+
+.order-list-desktop {
+    display: none !important;
+}
+
+.order-list-mobile {
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .order-list-desktop {
+        display: block !important;
+    }
+    .order-list-mobile {
+        display: none;
+    }
+}

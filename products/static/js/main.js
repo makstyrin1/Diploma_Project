@@ -16,7 +16,7 @@ function getCookie(name) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ==== Модальное окно для удаления из корзины ====
+    // Модальное окно для удаления из корзины 
     const deleteModal = document.getElementById('deleteModal');
     const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
     const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ==== Выпадающее меню категорий ====
+    // Выпадающее меню категорий 
     const toggle = document.getElementById('categoriesToggle');
     const menu = document.getElementById('categoriesMenu');
 
@@ -72,14 +72,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ==== Бургер-меню ====
+    // Бургер-меню 
 const burgerToggle = document.getElementById('burgerToggle');
 const mobileMenu = document.getElementById('mobileMenu');
 
 if (burgerToggle && mobileMenu) {
     // Открытие/закрытие по клику на бургер
     burgerToggle.addEventListener('click', function (e) {
-        e.stopPropagation(); // ← КЛЮЧЕВОЕ: останавливаем всплытие!
+        e.stopPropagation(); // останавливаем всплытие
         mobileMenu.classList.toggle('active');
     });
 
@@ -100,7 +100,7 @@ if (burgerToggle && mobileMenu) {
     });
 }
 
-    // ==== Галерея: клик по миниатюре → замена основного изображения ====
+    // Галерея: клик по миниатюре замена основного изображения
     const mainImage = document.getElementById('main-image');
     const galleryItems = document.querySelectorAll('.gallery-item img');
 
@@ -113,7 +113,7 @@ if (burgerToggle && mobileMenu) {
         });
     });
 
-    // ==== Управление аватаром ====
+    // Управление аватаром
     const deleteAvatarBtn = document.getElementById('delete-avatar-btn');
     const changeAvatarBtn = document.getElementById('change-avatar-btn');
 
@@ -137,7 +137,7 @@ if (burgerToggle && mobileMenu) {
         });
     }
 
-    // ==== ДОБАВЛЕНИЕ/УДАЛЕНИЕ ИЗ ИЗБРАННОГО (в каталоге: через формы) ====
+    // ДОБАВЛЕНИЕ/УДАЛЕНИЕ ИЗ ИЗБРАННОГО (в каталоге: через формы)
     document.querySelectorAll('.favorite-form').forEach(form => {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -178,10 +178,10 @@ if (burgerToggle && mobileMenu) {
         });
     });
 
-    // ==== УДАЛЕНИЕ ИЗ ИЗБРАННОГО НА СТРАНИЦЕ /products/favorites/ ====
+    // УДАЛЕНИЕ ИЗ ИЗБРАННОГО НА СТРАНИЦЕ /products/favorites/
     document.querySelectorAll('.favorite-remove-btn').forEach(button => {
         button.addEventListener('click', function () {
-            const url = this.dataset.url; // ← Берём URL из шаблона!
+            const url = this.dataset.url; // Берём URL из шаблона!
             const card = this.closest('.product-card');
             const csrfToken = getCookie('csrftoken');
 

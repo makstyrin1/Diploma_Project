@@ -26,7 +26,7 @@ class Product(models.Model):
         verbose_name='Категория'
     )
     name = models.CharField(max_length=200, verbose_name='Название')
-    slug = models.SlugField(max_length=200, unique=True, verbose_name="Slug")  # убран blank=True
+    slug = models.SlugField(max_length=200, unique=True, verbose_name="Slug")
     description = models.TextField(verbose_name='Описание')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
@@ -69,7 +69,6 @@ class ProductImage(models.Model):
         return reverse('product_detail', kwargs={'pk': self.product.pk})
 
     def save(self, *args, **kwargs):
-        # Гарантируем, что только одно изображение может быть основным
         if self.is_main:
             ProductImage.objects.filter(product=self.product).exclude(pk=self.pk).update(is_main=False)
         super().save(*args, **kwargs)
@@ -81,7 +80,7 @@ class Favorite(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'product')  # один товар — один раз в избранном у пользователя
+        unique_together = ('user', 'product')
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранные товары'
 
