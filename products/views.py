@@ -5,6 +5,9 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Product, Category, Favorite
+from .forms import CommentForm
+from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ProductListView(ListView):
@@ -71,6 +74,25 @@ class ProductDetailView(DetailView):
     def get_queryset(self):
         return Product.objects.prefetch_related('images')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        context['comments'] = self.object.comments.select_related('author').all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid() and request.user.is_authenticated:
+            comment = form.save(commit=False)
+            comment.product = self.object
+            comment.author = request.user
+            comment.save()
+            return redirect(self.object.get_absolute_url())
+        # Если форма не валидна или пользователь не авторизован — показываем ошибку
+        context = self.get_context_data()
+        context['comment_form'] = form
+        return self.render_to_response(context)
 
 @login_required
 @require_POST

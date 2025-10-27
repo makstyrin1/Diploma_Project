@@ -4,6 +4,7 @@
 {% block title %}Избранное — ТехноМаркет{% endblock %}
 
 {% block content %}
+<!-- CSRF для куки -->
 <div style="display:none;">{% csrf_token %}</div>
 
 <h1 class="page-title">Избранное</h1>
@@ -34,6 +35,7 @@
 
                 <div class="basket-like">
                     {% if user.is_authenticated %}
+                    <!-- Передаём правильный URL через data-url -->
                     <button class="favorite-remove-btn"
                             title="Убрать из избранного"
                             data-product-id="{{ product.pk }}"

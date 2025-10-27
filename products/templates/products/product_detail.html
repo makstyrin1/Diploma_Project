@@ -4,44 +4,80 @@
 
 {% block content %}
 <div class="product-detail">
+    <!-- Главное изображение -->
     <div class="product-main-image">
         {% if product.main_image %}
-            <img id="main-image" src="{{ product.main_image.url }}" alt="{{ product.name }}" loading="lazy">
+        <img id="main-image" src="{{ product.main_image.url }}" alt="{{ product.name }}" loading="lazy">
         {% else %}
-            <img id="main-image" src="{% static 'images/default-product.jpg' %}" alt="Нет изображения" loading="lazy">
+        <img id="main-image" src="{% static 'images/default-product.jpg' %}" alt="Нет изображения" loading="lazy">
         {% endif %}
     </div>
-    {% if product.images.all %}
-        {% with extra_images=product.images.all|dictsort:"is_main" %}
-            {% if extra_images|length > 1 or not product.main_image %}
-                <div class="product-gallery">
 
-                    <div class="gallery-images">
-                        {% for img in extra_images %}
-                            {% if not img.is_main %}
-                                <div class="gallery-item" data-src="{{ img.image.url }}">
-                                    <img src="{{ img.image.url }}" alt="{{ product.name }} - {{ forloop.counter }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+    <!-- Галерея дополнительных изображений -->
+    {% if product.images.all %}
+    {% with extra_images=product.images.all|dictsort:"is_main" %}
+    {% if extra_images|length > 1 or not product.main_image %}
+    <div class="product-gallery">
+
+        <div class="gallery-images">
+            {% for img in extra_images %}
+            {% if not img.is_main %}
+            <div class="gallery-item" data-src="{{ img.image.url }}">
+                <img src="{{ img.image.url }}" alt="{{ product.name }} - {{ forloop.counter }}" loading="lazy">
+            </div>
             {% endif %}
-        {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
     {% endif %}
+    {% endwith %}
+    {% endif %}
+
+    <!-- Информация о товаре -->
     <div class="product-detail__info">
         <h1 class="product-detail__title">{{ product.name }}</h1>
         <p class="product-detail__desc">{{ product.description }}</p>
         <div class="product-detail__price">Цена: <strong>{{ product.price }} ₽</strong></div>
 
         {% if user.is_authenticated %}
-            <a href="{% url 'cart_add' product.pk %}" class="btn btn--lg">Добавить в корзину</a>
+        <a href="{% url 'cart_add' product.pk %}" class="btn btn--lg">Добавить в корзину</a>
         {% else %}
-            <p><a href="{% url 'login' %}" class="btn btn--lg">Войдите, чтобы купить</a></p>
+        <p><a href="{% url 'login' %}" class="btn btn--lg">Войдите, чтобы купить</a></p>
         {% endif %}
 
-        <a href="{% url 'product_list' %}" class="btn btn--link btn btn--outline btn--sm">Назад к товарам</a>
+        <a href="{% url 'product_list' %}" class="btn btn--link btn btn--outline btn--sm" id="btn-detail">Назад к товарам</a>
     </div>
+</div>
+<!-- ... существующий контент ... -->
+
+<!-- Форма комментария -->
+<div class="product-comments">
+    <h3>Комментарии ({{ comments|length }})</h3>
+
+    {% if user.is_authenticated %}
+    <form method="post" class="comment-form">
+        {% csrf_token %}
+        {{ comment_form.text }}
+        <button type="submit" class="btn btn--sm btn--primary mt-2" id="btn-detail">Оставить комментарий</button>
+    </form>
+    {% else %}
+    <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить комментарий.</p>
+    {% endif %}
+
+    <!-- Список комментариев -->
+    {% if comments %}
+    <div class="comment-list mt-4">
+        {% for comment in comments %}
+        <div class="comment mb-3 p-3 border rounded">
+            <strong>{{ comment.author.username }}</strong>
+            <small class="text-muted">— {{ comment.created_at|date:"d.m.Y H:i" }}</small>
+            <p class="mt-1">{{ comment.text }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-muted">Пока нет комментариев</p>
+    {% endif %}
 </div>
 
 {% endblock %}
