@@ -883,9 +883,17 @@ textarea {
       text-align: center;
       font-size: 0.7rem;
       padding: 0.57rem 0.5rem;
-      width: 37%;
+      width: 45%;
       box-sizing: border-box;
     }
+
+  #btn-button-add {
+    text-align: center;
+    font-size: 0.7rem;
+    padding: 0.75rem 0.5rem;
+    width: 45%;
+    box-sizing: border-box;
+  }
     
   .btn_order {
     padding: 0.6rem 2.5rem; 
