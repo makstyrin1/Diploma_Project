@@ -5,10 +5,16 @@
 {% block content %}
 <div class="profile-page">
     <h1 class="page-title">Личный кабинет</h1>
+
+    <!-- Основная информация (всегда видна) -->
+
+    <!-- Форма редактирования профиля -->
     <div class="auth-form" style="margin-top: 1.5rem;">
         <h2 class="form-title">Редактировать профиль</h2>
         <form method="post" enctype="multipart/form-data" id="profile-form">
             {% csrf_token %}
+
+            <!-- Аватар: отображение и управление -->
             <div class="form-group">
                 {% if not user.profile.avatar %}
                 {{ form.avatar.label_tag }}
@@ -27,6 +33,8 @@
                         <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
                     </div>
                 </div>
+
+                <!-- Скрытые поля для Django -->
                 <input type="checkbox" name="avatar-clear" id="id_avatar-clear" style="display: none;">
                 <input type="file" name="avatar" accept="image/*" id="id_avatar" style="display: none;"
                     onchange="this.form.submit()">
@@ -40,6 +48,16 @@
                 <div class="form-error">{{ form.avatar.errors }}</div>
                 {% endif %}
             </div>
+
+            <!-- Остальные поля -->
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                <div class="form-error">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+
             <div class="form-group">
                 {{ form.first_name.label_tag }}
                 {{ form.first_name }}
@@ -75,18 +93,26 @@
             <button type="submit" class="btn btn--block" style="padding: 10px;">Сохранить изменения</button>
         </form>
     </div>
+
+    <!-- Смена пароля -->
     <div class="auth-form" style="margin-top: 1.5rem;">
         <h2 class="form-title">Безопасность</h2>
         <a href="{% url 'change_password' %}" class="btn btn--outline btn--block">Изменить пароль</a>
     </div>
+
+    <!-- Действия -->
     <div class="profile-actions" style="margin-top: 2rem;">
         <a href="{% url 'cart_detail' %}" class="btn">Перейти в корзину</a>
         <a href="{% url 'product_list' %}" class="btn btn--outline">Каталог товаров</a>
     </div>
+
+    <!-- Мои заказы — кнопка -->
     <div class="auth-form" style="margin-top: 2rem;">
         <h2 class="form-title">Заказы</h2>
         <a href="{% url 'order_list' %}" class="btn btn--block">Посмотреть мои заказы</a>
     </div>
+
+    <!-- Сообщения -->
     {% if messages %}
     {% for message in messages %}
     <div class="alert alert-success"
